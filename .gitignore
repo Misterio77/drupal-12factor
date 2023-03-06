@@ -1,0 +1,4 @@
+# Composer will redownload these.
+/vendor
+web/core
+web/contrib
