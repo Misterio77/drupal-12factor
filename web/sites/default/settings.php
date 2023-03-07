@@ -39,6 +39,6 @@ $settings = array(
 );
 
 # All settings are overwritable by local.settings.php at the project root
-if (file_exists($project_path. '/local.settings.php')) {
-  include $project_path. '/local.settings.php';
+if (file_exists($project_path. '/settings.php')) {
+  include $project_path. '/settings.php';
 }
