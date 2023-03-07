@@ -1,4 +1,10 @@
 # Composer will redownload these.
 /vendor
-web/core
-web/contrib
+/web/core
+/web/contrib
+
+# Local settings
+/settings.local.php
+
+# Local state
+/data

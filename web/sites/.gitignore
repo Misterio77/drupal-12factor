@@ -3,12 +3,7 @@
 /example.settings.local.php
 /example.sites.php
 
-# Ignore configuration files that may contain sensitive information.
-*/settings*.php
-
 # Ignore paths that contain user-generated content.
 */files
 */private
-
-# Ignore multi-site test environment.
-simpletest
+*/sync
