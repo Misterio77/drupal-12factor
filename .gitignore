@@ -4,7 +4,7 @@
 /web/contrib
 
 # Local settings
-/settings.local.php
+/local.settings.php
 
 # Local state
 /data
