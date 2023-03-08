@@ -2,9 +2,11 @@
 
 use Drupal\Component\Utility\Crypt;
 
-function mkdir_p($path, $mode = 0755) {
-  if (!file_exists($path)) {
-      mkdir($path, $mode, true);
+if (!function_exists('mkdir_p')) {
+  function mkdir_p($path, $mode = 0755) {
+    if (!file_exists($path)) {
+        mkdir($path, $mode, true);
+    }
   }
 }
 

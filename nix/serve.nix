@@ -1,16 +1,18 @@
 {pkgs ? import <nixpkgs> {}}: let
   mainPkg = pkgs.callPackage ./default.nix {};
-  php = builtins.head mainPkg.buildInputs;
 in
   pkgs.writeShellApplication {
     name = "serve";
+    inputsFrom = [mainPkg];
     runtimeInputs = [
-      phpPackages.composer
-      webfs
-      php
+      pkgs.phpPackages.composer
+      pkgs.webfs
+      mainPkg.php
+      mainPkg.utils
     ];
     text = ''
       DRUPAL_DATA_PATH="$(pwd)/data" \
-      ${mainPkg}/serve.sh "$@"
+      DRUPAL_PROJECT_PATH="${mainPkg}" \
+      ${../serve.sh} "$@"
     '';
   }

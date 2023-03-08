@@ -19,7 +19,7 @@ export DRUPAL_DATA_PATH="${DRUPAL_DATA_PATH:-"$DRUPAL_PROJECT_PATH/data"}"
 if [ ! -d "$DRUPAL_DATA_PATH" ]; then
   echo "Data dir $DRUPAL_DATA_PATH does not exist."
   echo "Running 'drush site:install' for you."
-  drush --root "$DRUPAL_PROJECT_PATH" si
+  drush --root "$DRUPAL_PROJECT_PATH" si -vvv
 fi
 
 webfsd -F -p $files_port -r "$DRUPAL_DATA_PATH/public" &
