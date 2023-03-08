@@ -1,10 +1,26 @@
+# Random READMEs scaffolding generates
+README.txt
+
 # Composer will redownload these.
 /vendor
-/web/core
-/web/contrib
 
 # Local settings
 /local.settings.php
 
 # Local state
 /data
+
+# Example files
+/web/sites/*/default.services.yml
+/web/sites/*/default.settings.php
+/web/sites/development.services.yml
+/web/sites/example.settings.php
+/web/sites/example.settings.local.php
+/web/sites/example.sites.php
+
+# Composer will redownload most things, keep only what we need
+/web/*
+!/web/modules
+!/web/profiles
+!/web/sites
+!/web/themes

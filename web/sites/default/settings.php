@@ -12,7 +12,7 @@ if (!function_exists('mkdir_p')) {
 
 # This configuration is my attempt to make it possible to separate state from a
 # built drupal website artifact (source code + dependencies).
-#
+
 # This helps with packaging the website for Docker, Nix, etc.
 
 # Root directory containing vendor and web
@@ -47,8 +47,3 @@ mkdir_p($settings['file_public_path']);
 mkdir_p($settings['file_private_path']);
 mkdir_p($settings['config_sync_directory']);
 mkdir_p($settings['config_directory_name']);
-
-# All settings are overwritable by local.settings.php at the project root
-if (file_exists($project_path. '/local.settings.php')) {
-  include $project_path. '/local.settings.php';
-}

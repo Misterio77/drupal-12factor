@@ -4,11 +4,9 @@ in
   pkgs.writeShellApplication {
     name = "serve";
     inputsFrom = [mainPkg];
-    runtimeInputs = [
-      pkgs.phpPackages.composer
-      pkgs.webfs
-      mainPkg.php
-      mainPkg.utils
+    runtimeInputs = with pkgs; [
+      phpPackages.composer
+      webfs
     ];
     text = ''
       DRUPAL_DATA_PATH="$(pwd)/data" \

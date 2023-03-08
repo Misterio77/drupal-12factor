@@ -4,10 +4,9 @@ in
   pkgs.mkShell {
     name = "${mainPkg.name}-shell";
     inputsFrom = [mainPkg];
-    buildInputs = [
-      pkgs.phpPackages.composer
-      pkgs.webfs
-      mainPkg.php
-      mainPkg.utils
+    buildInputs = with pkgs; [
+      phpPackages.composer
+      webfs
+      (writeShellScriptBin "drush" ''composer exec drush "$@"'')
     ];
   }
