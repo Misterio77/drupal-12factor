@@ -10,6 +10,7 @@
     packages = forEachSystem (system: pkgs: {
       default = pkgs.callPackage ./nix/default.nix {};
       serve = pkgs.callPackage ./nix/serve.nix {};
+      drush = pkgs.callPackage ./nix/drush.nix {};
     });
     devShells = forEachSystem (system: pkgs: {
       default = pkgs.callPackage ./nix/shell.nix {};

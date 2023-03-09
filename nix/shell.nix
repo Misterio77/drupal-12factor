@@ -4,10 +4,10 @@ in
   pkgs.mkShell {
     name = "${mainPkg.name}-shell";
     buildInputs = with pkgs; [
-      phpPackages.composer
-      php
+      php81
       sqlite
       webfs
+      php81Packages.composer
       # Alias 'drush' to 'composer exec drush'
       (writeShellScriptBin "drush" ''composer exec drush "$@"'')
     ];

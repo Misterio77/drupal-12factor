@@ -1,0 +1,10 @@
+# Keep in sync with .gitignore
+# Composer will redownload and scaffold core and dependency files, keep only custom stuff
+/vendor
+# Local settings
+/local.settings.php
+# Local state
+/data
+
+# Random READMEs scaffolding generates
+README.txt

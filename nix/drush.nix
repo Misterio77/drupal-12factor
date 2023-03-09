@@ -3,13 +3,13 @@
 in
   pkgs.writeShellApplication {
     name = "serve";
-    runtimeInputs = with pkgs; [ php81 sqlite webfs ];
+    runtimeInputs = with pkgs; [ php81 sqlite ];
     text = ''
-      # Run serve.sh
+      # Run drush
       # Using current directory as data path
       # And pointing to the package (built artifact) as project path
       DRUPAL_DATA_PATH="''${DRUPAL_DATA_PATH:-"$(pwd)/data"}" \
       DRUPAL_PROJECT_PATH="${mainPkg}" \
-      ${../serve.sh} "$@"
+      ${mainPkg}/vendor/bin/drush --root="${mainPkg}" "$@"
     '';
   }

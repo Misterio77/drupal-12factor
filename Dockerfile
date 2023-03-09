@@ -17,6 +17,7 @@ RUN apk add --no-cache \
 # Make sure nginx can access data
 RUN addgroup nginx nobody
 USER nobody
+ENV PATH="$PATH:/app/vendor/bin"
 WORKDIR /app
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --chown=nginx --from=builder /app /app
