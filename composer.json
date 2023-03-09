@@ -1,5 +1,5 @@
 {
-  "name": "misterio77/drupal-nix-test",
+  "name": "misterio77/drupal-12factor",
   "type": "project",
   "repositories": [
     {

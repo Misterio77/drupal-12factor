@@ -116,7 +116,7 @@ let
   );
 
 in stdenv.mkDerivation {
-  name = "misterio77_drupal-nix-test";
+  name = "misterio77_drupal-12factor";
   inherit src;
 
   # Make sure the build uses the right PHP version everywhere.
