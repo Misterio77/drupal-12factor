@@ -24,15 +24,15 @@ state. This brings a series of advantages:
 
 Check `web/sites/default/settings.php` for more info. All the options to
 install a site are configured with sane defaults and can be overwritten through
-environment variables, this is to ensure that `drush si` does not need to write
-a single line to it. If an escape hatch is needed, you can add a
-`local.settings.php` to the root of the project, it will be read after the
+environment variables, I try to ensure that Drupal does not need to write a
+single line to it during installation. If an escape hatch is needed, you can
+add a `local.settings.php` in the state folder, it will be read after the
 default one.
 
 # Usage
 
 Check [this doc](./docs/env-vars.md) for the relevant environment variables you
-can use; there's a lot environment variables if you want to use a different
+can use; there's a lot of environment variables if you want to use a different
 database or more granular control over the state locations.
 
 **Important**: the project, by default, uses the `data` directory next to your
