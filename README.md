@@ -62,12 +62,6 @@ With `pacman`:
 sudo pacman -S php composer sqlite webfs
 ```
 
-If you [use Nix](./docs/nix.md) or NixOS, you can get a shell with everything
-you need:
-```bash
-nix develop
-```
-
 ### Build and run
 
 Run `composer install` to get the dependencies and scaffold the webroot files.
@@ -117,42 +111,7 @@ bind to a host directory: `-v ./data:/app/data`.
 You can set up the site as usual; using either Drush (use `docker exec --latest
 -it drush`), through the web interface, or by copying your existing data.
 
-## Nix
-
-For more info on Nix and how to set it up, see [this doc](./docs/nix.md).
-
-### Development shell
-
-As mentioned, you can use `nix develop .` to get a development shell with
-everything you need. This method uses the local files for developing, as usual.
-
-### Building and running
-
-You can build the site with `nix build .`. The output will be an immutable
-directory (containing `web` and `vendor`) linked at `result`.
-
-The output also contains the `bin/serve`, but this version has a few cool
-tricks.
-
-It provides the full dependencies (no need to install anything nor enter the dev
-shell) and, as it is located inside it, uses the _fully built_ package (that
-is, you don't need to `composer install` first). You can run it more
-conveniently by using `nix run .`.
-
-To run drush, use `nix run .#drush`. Same as above, it acts on the built
-website artifact.
-
-You actually don't even need the repository cloned to build and run with nix!
-Try replacing the `.` argument with `github:misterio77/drupal-12factor`. For
-example:
-
-```
-nix run github:misterio77/drupal-12factor#serve
-```
-
 # TODO
 
 - [ ] Perhaps add a `docker compose` and/or Kubernetes examples as well? A
     single container works fine, though.
-- [ ] Add a NixOS VM definition? Again, a single `nix run` works fine, but
-    should be interesting as an example.

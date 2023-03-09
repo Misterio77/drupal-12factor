@@ -10,8 +10,7 @@
   "require": {
     "composer/installers": "^2.0",
     "drupal/core-composer-scaffold": "^10.0",
-    "drupal/core-recommended": "^10.0",
-    "stephank/composer-plugin-nixify": "^1.1"
+    "drupal/core-recommended": "^10.0"
   },
   "conflict": {
     "drupal/drupal": "*"
@@ -23,8 +22,7 @@
       "composer/installers": true,
       "drupal/core-composer-scaffold": true,
       "phpstan/extension-installer": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true,
-      "stephank/composer-plugin-nixify": true
+      "dealerdirect/phpcodesniffer-composer-installer": true
     },
     "sort-packages": true,
     "platform": {
@@ -43,8 +41,6 @@
         "[project-root]/.gitignore": false
       }
     },
-    "nix-expr-path": "nix/composer-project.nix",
-    "generate-default-nix": false,
     "installer-paths": {
       "web/core": [
         "type:drupal-core"
