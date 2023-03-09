@@ -32,11 +32,14 @@ default one.
 # Usage
 
 Check [this doc](./docs/env-vars.md) for the relevant environment variables you
-can use.
+can use; there's a lot environment variables if you want to use a different
+database or more granular control over the state locations.
 
-Long story short: the default config uses the current directory as the project
-root, and a `data` directory inside it to store any state (including a SQLite
-database).
+**Important**: the project, by default, uses the `data` directory next to your
+webroot to store any state (including a SQLite database). This can be
+overwritten by changing the `DRUPAL_DATA_PATH` environment variable. The
+`bin/serve` script sets it to `$(pwd)/data` by default, which is slightly
+different (it is relative to where you called it from, not the project root).
 
 ## Manually
 
@@ -69,12 +72,12 @@ nix develop
 
 Run `composer install` to get the dependencies and scaffold the webroot files.
 
-Then run `./serve.sh` (this script exists because of the caveat of having to
+Then run `bin/serve` (this script exists because of the caveat of having to
 run `php` as well as another file server). It will be accessible at
 `localhost:8080`.
 
 You can alternatively run `php -S localhost:8080 -t web/` and `webfs -F -p 8081
--r data/public/` (or any other file server) manually.
+-r data/public/` (or any other file server program) manually.
 
 You can set up the site as usual; using either Drush (use `composer exec
 drush`), through the web interface, or by copying your existing data.
@@ -123,34 +126,26 @@ For more info on Nix and how to set it up, see [this doc](./docs/nix.md).
 As mentioned, you can use `nix develop .` to get a development shell with
 everything you need. This method uses the local files for developing, as usual.
 
-### Building
+### Building and running
 
 You can build the site with `nix build .`. The output will be an immutable
 directory (containing `web` and `vendor`) linked at `result`.
 
-### Scripts/apps
+The output also contains the `bin/serve`, but this version has a few cool
+tricks.
 
-You can quickly serve the website (with `php -S` and `webfs`) using `nix run
-.#serve` (or just `nix run .`). It will be accessible on `localhost:8080`.
+It provides the full dependencies (no need to install anything nor enter the dev
+shell) and, as it is located inside it, uses the _fully built_ package (that
+is, you don't need to `composer install` first). You can run it more
+conveniently by using `nix run .`.
 
-It is similar to `./serve.sh`, but already provides the dependencies (no need
-to install anything nor enter the shell) and uses the website as it is built by
-nix (for example, you don't need to `composer install` first).
+To run drush, use `nix run .#drush`. Same as above, it acts on the built
+website artifact.
 
-To run drush, use `nix run .#drush`. Same as above, it acts on the nix build
-output.
+You actually don't even need the repository cloned to build and run with nix!
+Try replacing the `.` argument with `github:misterio77/drupal-12factor`. For
+example:
 
-Both of these have a slight difference to local development (be it with the
-shell or when stuff is manually installed) that they act on the same output
-that is produced by `nix build`; that means, for example, that you don't need
-to `composer install` first, or even have php or webfs available. Awesome!
-
-Both of these and use `$(pwd)/data` as the default data storage, this can be
-overwritten with `DRUPAL_DATA_PATH`.
-
-### Flake ref
-
-All of these commands take a nix flake reference, that is, a directory or repository that contains a `flake.nix`. In the examples we use `.` to refer to the current directory, but you can run all of them without even cloning the repo by using `github:misterio77/drupal-12factor` as ref instead. For example:
 ```
 nix run github:misterio77/drupal-12factor#serve
 ```
