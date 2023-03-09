@@ -84,7 +84,7 @@ The image contains all the source code and dependencies, and has `nginx` +
 `php-fpm` setup to serve everything.
 
 The code and dependencies are set up in different layers, so changing the
-source code and re-running `docker build` should not take very long.
+source code rebuilding does not redownload dependencies.
 
 ### Run
 
