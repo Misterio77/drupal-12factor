@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Serves the website. By default, will serve the PHP app at localhost:8080 and the public files at localhost:8081
+# DRUPAL_PROJECT_PATH and DRUPAL_DATA_PATH are set to sane defaults and are overridable.
+# Will also run composer install and drush si as needed.
+
 set -euo pipefail
 
 main_port="${1:-"8080"}"
@@ -15,9 +19,9 @@ function require_cmd() {
 require_cmd "webfsd"
 require_cmd "php"
 
-# Default to where this script is (probably where the code is)
+# Fallback to where this script is (probably where the code is)
 DRUPAL_PROJECT_PATH="${DRUPAL_PROJECT_PATH:-"$(dirname "$(realpath -s "$0")")"}"
-# Default to where the runner is (probably where they want to store data)
+# Fallback to where the runner is (probably where they want to store data)
 DRUPAL_DATA_PATH="${DRUPAL_DATA_PATH:-"$(pwd)/data"}"
 
 # Change to the project path, to use composer and drush without having to specify it every time
@@ -35,15 +39,16 @@ if [ ! -d "$DRUPAL_DATA_PATH" ]; then
   composer exec drush si
 fi
 
-# Serve public data files with webfs
-webfsd -F -p $files_port -r "$DRUPAL_DATA_PATH/public" &
-DRUPAL_FILE_PUBLIC_BASE_URL="http://localhost:$files_port"
-echo "File server running ($DRUPAL_FILE_PUBLIC_BASE_URL)"
+# Serve public data files with webfs, if DRUPAL_FILE_PUBLIC_BASE_URL is not already set.
+if [ -z "${DRUPAL_FILE_PUBLIC_BASE_URL:-}" ]; then
+  webfsd -F -p $files_port -r "$DRUPAL_DATA_PATH/public" &
+  DRUPAL_FILE_PUBLIC_BASE_URL="http://localhost:$files_port"
+  echo "File server running ($DRUPAL_FILE_PUBLIC_BASE_URL)"
+fi
 
 # Start drupal application, export the variables to it
 export DRUPAL_PROJECT_PATH DRUPAL_DATA_PATH DRUPAL_FILE_PUBLIC_BASE_URL;
 php -S "localhost:$main_port" -t "$DRUPAL_PROJECT_PATH/web/" &
-
 
 # Go back to where we were
 popd
