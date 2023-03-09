@@ -5,7 +5,8 @@ deploying with Nix.
 
 [Nix](https://nixos.org/guides/how-nix-works.html) is a package manager based
 on functional programming ideas, and offers awesome features such as
-reproducible local developer environments.
+reproducible, isolated, per-project developer environments (like virtualenv,
+but for anything!.
 
 [NixOS](https://nixos.org/guides/how-nix-works.html#nixos) is a Linux
 distribution that uses Nix not only for packages, but for generating and
