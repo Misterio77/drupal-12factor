@@ -1,0 +1,25 @@
+# Keep in sync with .gitignore
+# Ignore all vendored/scaffolded stuff (composer will set them up for us)
+/autoload.php
+/core
+/.csslintrc
+/.eslintignore
+/.eslintrc.json
+/.htaccess
+/.ht.router.php
+/index.php
+/INSTALL.txt
+/robots.txt
+/update.php
+/web.config
+
+# Ignore all vendored contrib modules and themes (composer will also handle these)
+/*/contrib
+
+# Ignore examples and default configs
+default.*
+example.*
+
+# Ignore READMEs
+README.txt
+README.md

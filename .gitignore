@@ -1,25 +1,9 @@
 # Composer will redownload and scaffold core and dependency files, keep only custom stuff
 /vendor
-/web/*
-!/web/modules
-!/web/profiles
-!/web/sites
-!/web/themes
-/web/*/contrib
-
 # Local settings
 /local.settings.php
-
 # Local state
 /data
-
-# Example files
-/web/sites/*/default.services.yml
-/web/sites/*/default.settings.php
-/web/sites/development.services.yml
-/web/sites/example.settings.php
-/web/sites/example.settings.local.php
-/web/sites/example.sites.php
 
 # Random READMEs scaffolding generates
 README.txt

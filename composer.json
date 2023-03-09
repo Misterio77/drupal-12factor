@@ -26,7 +26,11 @@
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "stephank/composer-plugin-nixify": true
     },
-    "sort-packages": true
+    "sort-packages": true,
+    "platform": {
+      "php": "8.1",
+      "ext-gd": "8.1"
+    }
   },
   "extra": {
     "drupal-scaffold": {
