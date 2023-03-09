@@ -9,6 +9,8 @@ in
       webfs
     ];
     text = ''
+      # Use current directory as data path
+      # And point to the package as project (built artifact) path
       DRUPAL_DATA_PATH="$(pwd)/data" \
       DRUPAL_PROJECT_PATH="${mainPkg}" \
       ${../serve.sh} "$@"

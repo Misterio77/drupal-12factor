@@ -7,6 +7,7 @@ in
     buildInputs = with pkgs; [
       phpPackages.composer
       webfs
+      # Alias 'drush' to 'composer exec drush'
       (writeShellScriptBin "drush" ''composer exec drush "$@"'')
     ];
   }
