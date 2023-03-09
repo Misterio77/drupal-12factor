@@ -6,7 +6,7 @@
   src = builtins.path {
     name = "source";
     path = ../.;
-    filter = include ["web" "composer.json" "composer.lock"];
+    filter = include ["bin" "web" "composer.json" "composer.lock"];
   };
   project =
     pkgs.callPackage ./composer-project.nix {
@@ -15,9 +15,23 @@
     }
     src;
 in
-  project.overrideAttrs (oldAttrs: {
+  project.overrideAttrs (oldAttrs: rec {
+    nativeBuildInputs = [pkgs.makeWrapper];
+    buildInputs =
+      oldAttrs.buildInputs
+      ++ (with pkgs; [
+        sqlite
+        webfs
+        coreutils
+        which
+      ]);
     installPhase = ''
       # We're only interested in the libweb dir (the one we're currently in), move it to $out
       cp . $out -r
+      # Wrap the script
+      wrapProgram $out/bin/serve --set PATH ${pkgs.lib.makeBinPath buildInputs}
     '';
+    meta = {
+      mainProgram = "serve";
+    };
   })

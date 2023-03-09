@@ -146,8 +146,7 @@ that is produced by `nix build`; that means, for example, that you don't need
 to `composer install` first, or even have php or webfs available. Awesome!
 
 Both of these and use `$(pwd)/data` as the default data storage, this can be
-overwritten with `DRUPAL_DATA_PATH`. `DRUPAL_PROJECT_PATH` is set to the nix
-build outputs.
+overwritten with `DRUPAL_DATA_PATH`.
 
 ### Flake ref
 

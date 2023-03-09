@@ -10,13 +10,9 @@
 
 use Drupal\Component\Utility\Crypt;
 
-# Root directory containing vendor and web
-# Default to the directory above the webroot
-$project_path = getenv('DRUPAL_PROJECT_PATH') ?: realpath('../');
-
 # Mutable data path
-# Default to a "data" directory in the project path
-$data_path = getenv('DRUPAL_DATA_PATH') ?: $project_path . '/data';
+# Default to a "data" directory in the project root path
+$data_path = getenv('DRUPAL_DATA_PATH') ?: realpath('../') . '/data';
 # Make sure it exists, ignore errors
 @mkdir($data_path);
 
@@ -55,8 +51,8 @@ if (!file_exists($settings['hash_salt']) || filesize($settings['hash_salt']) == 
 @mkdir($settings['config_sync_directory']);
 @mkdir($settings['config_directory_name']);
 
-# All settings are overwritable by local.settings.php at the project root
+# All settings are overwritable by local.settings.php at the data directory
 # Using environment variables is preferred, though.
-if (file_exists($project_path. '/local.settings.php')) {
-  include $project_path. '/local.settings.php';
+if (file_exists($data_path. '/local.settings.php')) {
+  include $data_path. '/local.settings.php';
 }

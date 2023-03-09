@@ -1,6 +1,5 @@
 # Available environment variables
 
-- `DRUPAL_PROJECT_PATH`: Used to find `local.settings.php` and derive the default `DRUPAL_DATA_PATH`.
 - `DRUPAL_DATA_PATH`: Used to derive most other state location variables. If
     you want to store state elsewhere, this is the most convenient way.
 - Database related:
