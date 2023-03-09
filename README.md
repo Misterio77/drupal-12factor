@@ -70,9 +70,11 @@ nix develop
 Run `composer install` to get the dependencies and scaffold the webroot files.
 
 Then run `./serve.sh` (this script exists because of the caveat of having to
-run `php` as well as another file server). You can alternatively run `php -S
-localhost:8080 -t web/` and `webfs -F -p 8081 -r data/public/` (or any other
-file server) manually.
+run `php` as well as another file server). It will be accessible at
+`localhost:8080`.
+
+You can alternatively run `php -S localhost:8080 -t web/` and `webfs -F -p 8081
+-r data/public/` (or any other file server) manually.
 
 You can set up the site as usual; using either Drush (use `composer exec
 drush`), through the web interface, or by copying your existing data.
@@ -129,12 +131,13 @@ directory (containing `web` and `vendor`) linked at `result`.
 ### Scripts/apps
 
 You can quickly serve the website (with `php -S` and `webfs`) using `nix run
-.#serve` (or just `nix run .`) It is similar to `./serve.sh`, but already
-provides the dependencies (no need to install anything nor enter the shell) and
-uses the website as it is built by nix (for example, you don't need to
-`composer install` first).
+.#serve` (or just `nix run .`). It will be accessible on `localhost:8080`.
 
-To use drush, try `nix run .#drush`. Same as above, it acts on the nix build
+It is similar to `./serve.sh`, but already provides the dependencies (no need
+to install anything nor enter the shell) and uses the website as it is built by
+nix (for example, you don't need to `composer install` first).
+
+To run drush, use `nix run .#drush`. Same as above, it acts on the nix build
 output.
 
 Both of these have a slight difference to local development (be it with the
