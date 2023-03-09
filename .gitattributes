@@ -1,1 +1,3 @@
 nix/composer-project.nix linguist-generated
+composer.lock linguist-generated
+flake.lock linguist-generated
