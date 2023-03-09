@@ -31,7 +31,12 @@ default one.
 
 # Usage
 
-Check [this doc](./docs/env-vars.md) for the relevant environment variables you can use.
+Check [this doc](./docs/env-vars.md) for the relevant environment variables you
+can use.
+
+Long story short: the default config uses the current directory as the project
+root, and a `data` directory inside it to store any state (including a SQLite
+database).
 
 ## Manually
 
@@ -95,10 +100,10 @@ docker run -p 8080:8080 $(docker build . -q)
 This will bind the port to `8080`. The format is `host:container`, so change
 the first number if you want to bind to another host port.
 
-As previously mentioned, the database defaults to a SQLite located at the data
-directory (this makes it possible to run it with a single container). Set the
-`DRUPAL_DB_*` environment variables if you want to use PostgreSQL or MySQL
-instead.
+As previously [mentioned](./docs/env-vars.md), the database defaults to a
+SQLite located at the data directory (this makes it possible to run it with a
+single container). Set the `DRUPAL_DB_*` environment variables if you want to
+use PostgreSQL or MySQL instead.
 
 If you want to persist the data outside the container, add a volume argument to
 `docker run`. You can either use a named volume: `-v drupal-data:/app/data`; or
@@ -108,6 +113,8 @@ You can set up the site as usual; using either Drush (use `docker exec --latest
 -it drush`), through the web interface, or by copying your existing data.
 
 ## Nix
+
+For more info on Nix and how to set it up, see [this doc](./docs/nix.md).
 
 ### Development shell
 
