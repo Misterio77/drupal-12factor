@@ -1,8 +1,11 @@
-# Random READMEs scaffolding generates
-README.txt
-
-# Composer will redownload these.
+# Composer will redownload and scaffold core and dependency files, keep only custom stuff
 /vendor
+/web/*
+!/web/modules
+!/web/profiles
+!/web/sites
+!/web/themes
+/web/*/contrib
 
 # Local settings
 /local.settings.php
@@ -18,10 +21,5 @@ README.txt
 /web/sites/example.settings.local.php
 /web/sites/example.sites.php
 
-# Composer will redownload most things, keep only what we need
-/web/*
-!/web/modules
-!/web/profiles
-!/web/sites
-!/web/themes
-/web/*/contrib
+# Random READMEs scaffolding generates
+README.txt
