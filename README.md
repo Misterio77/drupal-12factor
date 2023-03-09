@@ -155,3 +155,10 @@ All of these commands take a nix flake reference, that is, a directory or reposi
 ```
 nix run github:misterio77/drupal-12factor#serve
 ```
+
+# TODO
+
+- [ ] Perhaps add a `docker compose` and/or Kubernetes examples as well? A
+    single container works fine, though.
+- [ ] Add a NixOS VM definition? Again, a single `nix run` works fine, but
+    should be interesting as an example.
