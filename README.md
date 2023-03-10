@@ -106,7 +106,9 @@ use PostgreSQL or MySQL instead.
 
 If you want to persist the data outside the container, add a volume argument to
 `docker run`. You can either use a named volume: `-v drupal-data:/app/data`; or
-bind to a host directory: `-v ./data:/app/data`.
+bind to a host directory: `-v ./data:/app/data` (for the latter, be sure to
+`mkdir -p data && chmod 777 data` so that the container user can write to it;
+rest assured, the files themselves won't be 777, just the parent dir).
 
 You can set up the site as usual; using either Drush (use `docker exec --latest
 -it drush`), through the web interface, or by copying your existing data.
