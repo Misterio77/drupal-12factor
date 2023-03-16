@@ -82,43 +82,6 @@ You can alternatively run `php -S localhost:8080 -t web/` and `webfs -F -p 8081
 You can set up the site as usual; using either Drush (use `composer exec
 drush`), through the web interface, or by copying your existing data.
 
-## Docker
-
-### Build
-
-```bash
-docker build .
-```
-
-The image contains all the source code and dependencies, and has `nginx` +
-`php-fpm` setup to serve everything.
-
-The code and dependencies are set up in different layers, so changing the
-source code rebuilding does not redownload dependencies.
-
-### Run
-
-```bash
-docker run -p 8080:8080 $(docker build . -q)
-```
-
-This will bind the port to `8080`. The format is `host:container`, so change
-the first number if you want to bind to another host port.
-
-As previously [mentioned](./docs/env-vars.md), the database defaults to a
-SQLite located at the data directory (this makes it possible to run it with a
-single container). Set the `DRUPAL_DB_*` environment variables if you want to
-use PostgreSQL or MySQL instead.
-
-If you want to persist the data outside the container, add a volume argument to
-`docker run`. You can either use a named volume: `-v drupal-data:/app/data`; or
-bind to a host directory: `-v ./data:/app/data` (for the latter, be sure to
-`mkdir -p data && chmod 777 data` so that the container user can write to it;
-rest assured, the files themselves won't be 777, just the parent dir).
-
-You can set up the site as usual; using either Drush (use `docker exec --latest
--it drush`), through the web interface, or by copying your existing data.
-
 ## Nix
 
 For more info on Nix and how to set it up, see [this doc](./docs/nix.md).
@@ -154,7 +117,5 @@ nix run github:misterio77/drupal-12factor#serve
 
 # TODO
 
-- [ ] Perhaps add a `docker compose` and/or Kubernetes examples as well? A
-    single container works fine, though.
 - [ ] Add a NixOS VM definition? Again, a single `nix run` works fine, but
     should be interesting as an example.
