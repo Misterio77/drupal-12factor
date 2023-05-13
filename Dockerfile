@@ -15,10 +15,10 @@ RUN apk add --no-cache \
   php81-pdo_sqlite \
   php81-pdo_pgsql
 
-# Make sure nginx can access data
-RUN addgroup nginx nobody
+# Change webroot
+RUN sed -i 's:/var/www/html:/app/web:' /etc/nginx/conf.d/default.conf
+
 USER nobody
 ENV PATH="$PATH:/app/vendor/bin"
 WORKDIR /app
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
-COPY --chown=nginx --from=builder /app /app
+COPY --chown=nobody --from=builder /app /app
