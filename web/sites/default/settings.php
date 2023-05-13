@@ -1,3 +1,3 @@
 <?php
 $site = 'default';
-include "12fdrupal.settings.php";
+require "12fdrupal.settings.php";
