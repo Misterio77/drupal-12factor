@@ -22,7 +22,7 @@ state. This brings a series of advantages:
     not have to be committed with the code or backed up with the
     state.
 
-Check `web/sites/default/settings.php` for more info. All the options to
+Check `web/12fdrupal.settings.php` for more info. All the options to
 install a site are configured with sane defaults and can be overwritten through
 environment variables, I try to ensure that Drupal does not need to write a
 single line to it during installation. If an escape hatch is needed, you can
@@ -88,10 +88,9 @@ docker run -p 8080:8080 $(docker build . -q)
 This will bind the port to `8080`. The format is `host:container`, so change
 the first number if you want to bind to another host port.
 
-As previously [mentioned](./docs/env-vars.md), the database defaults to a
-SQLite located at the data directory (this makes it possible to run it with a
-single container). Set the `DRUPAL_DB_*` environment variables if you want to
-use PostgreSQL or MySQL instead.
+The database defaults to a SQLite located at the data directory (this makes it
+possible to run it with a single container). See [environment variables
+docs](./docs/env-vars.md) if you want to use PostgreSQL or MySQL instead.
 
 If you want to persist the data outside the container, add a volume argument to
 `docker run`. You can either use a named volume: `-v drupal-data:/app/data`; or
@@ -101,3 +100,7 @@ rest assured, the files themselves won't be 777, just the parent dir).
 
 You can set up the site as usual; using either Drush (use `docker exec --latest
 -it drush`), through the web interface, or by copying your existing data.
+
+## TODO
+
+- Investigate possibility of having source code out of webroot entirely ([drupal-paranoia](https://github.com/drupal-composer/drupal-paranoia)?)
