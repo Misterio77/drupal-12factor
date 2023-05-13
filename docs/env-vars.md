@@ -19,9 +19,6 @@
     balancing):
   - `DRUPAL_FILE_PUBLIC_PATH`: Where Drupal will place aggregated assets and
       public user uploaded files. Defaults to `${DRUPAL_DATA_PATH}/public`.
-    - A caveat of moving this outside the webroot is that you need to serve
-        these files separately (webfsd, separate nginx location, etc.) and set
-        `DRUPAL_FILE_PUBLIC_BASE_URL` to match it.
   - `DRUPAL_FILE_PRIVATE_PATH`: Where Drupal will place private user uploaded
       files. Defaults to `${DRUPAL_DATA_PATH}/private`.
   - `DRUPAL_HASH_SALT_PATH`: Where Drupal will generate to and read from the

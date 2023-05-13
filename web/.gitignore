@@ -11,6 +11,10 @@
 /robots.txt
 /update.php
 /web.config
+/sites/development.services.yml
+
+# Ignore public files (state and cache)
+/sites/*/files
 
 # Ignore all vendored contrib modules and themes (composer will also handle these)
 /*/contrib

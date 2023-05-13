@@ -14,6 +14,7 @@ RUN apk add --no-cache \
   php81-pdo_mysql \
   php81-pdo_sqlite \
   php81-pdo_pgsql
+
 # Make sure nginx can access data
 RUN addgroup nginx nobody
 USER nobody

@@ -32,46 +32,35 @@ default one.
 # Usage
 
 Check [this doc](./docs/env-vars.md) for the relevant environment variables you
-can use; there's a lot of environment variables if you want to use a different
-database or more granular control over the state locations.
+can use; there are a lot of environment variables if you want to use a
+different database or more granular control over the state locations.
 
-**Important**: the project, by default, uses the `data` directory next to your
-webroot to store any state (including a SQLite database). This can be
-overwritten by changing the `DRUPAL_DATA_PATH` environment variable. The
-`bin/serve` script sets it to `$(pwd)/data` by default, which is slightly
-different (it is relative to where you called it from, not the project root).
+The gist is that this project, by default, uses the `data` directory (right
+here on your project root) to store any state (including a SQLite database).
+This can be overwritten by changing the `DRUPAL_DATA_PATH` environment
+variable.
 
 ## Manually
 
 ### Dependencies
 
-Install `php8`, `composer`, `sqlite`, `webfs` through your preferred package manager.
+Install `php`, `composer`, `sqlite` through your preferred package manager.
 
-With `apt`:
+With `apt` (debian-based):
 ```bash
-sudo apt install php8 sqlite3 webfs
-# Sadly composer is not available with apt, so let's download the installer:
-wget -O composer-setup.php https://getcomposer.org/installer
-# The hash output should be equal to this one: https://composer.github.io/installer.sig
-sha384sum composer-setup.php
-sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+sudo apt install php composer sqlite
 ```
 
-With `pacman`:
+With `pacman` (arch-based):
 ```bash
-sudo pacman -S php composer sqlite webfs
+sudo pacman -S php composer sqlite
 ```
 
 ### Build and run
 
 Run `composer install` to get the dependencies and scaffold the webroot files.
 
-Then run `bin/serve` (this script exists because of the caveat of having to
-run `php` as well as another file server). It will be accessible at
-`localhost:8080`.
-
-You can alternatively run `php -S localhost:8080 -t web/` and `webfs -F -p 8081
--r data/public/` (or any other file server program) manually.
+Then run PHP dev server with `php -S localhost:8000 -t web`
 
 You can set up the site as usual; using either Drush (use `composer exec
 drush`), through the web interface, or by copying your existing data.
@@ -112,8 +101,3 @@ rest assured, the files themselves won't be 777, just the parent dir).
 
 You can set up the site as usual; using either Drush (use `docker exec --latest
 -it drush`), through the web interface, or by copying your existing data.
-
-# TODO
-
-- [ ] Perhaps add a `docker compose` and/or Kubernetes examples as well? A
-    single container works fine, though.
