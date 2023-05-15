@@ -1,5 +1,5 @@
 {
-  "name": "misterio77/drupal-12factor",
+  "name": "zoocha/drupal-12factor",
   "type": "project",
   "repositories": [
     {
@@ -7,22 +7,26 @@
       "url": "https://packages.drupal.org/8"
     }
   ],
+
   "require": {
     "composer/installers": "^2.0",
     "drupal/core-composer-scaffold": "^10.0",
     "drupal/core-recommended": "^10.0"
   },
-  "conflict": {
-    "drupal/drupal": "*"
+  "require-dev": {
+    "drupal/core-dev": "^10.0",
+    "drush/drush": "^11.5",
+    "topfloor/composer-cleanup-vcs-dirs": "^1.1"
   },
-  "minimum-stability": "stable",
   "prefer-stable": true,
+
   "config": {
     "allow-plugins": {
       "composer/installers": true,
       "drupal/core-composer-scaffold": true,
       "phpstan/extension-installer": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "topfloor/composer-cleanup-vcs-dirs": true
     },
     "sort-packages": true,
     "platform": {
@@ -30,6 +34,7 @@
       "ext-gd": "8.1"
     }
   },
+
   "extra": {
     "drupal-scaffold": {
       "locations": {
@@ -70,8 +75,5 @@
         "type:drupal-custom-theme"
       ]
     }
-  },
-  "require-dev": {
-    "drush/drush": "^11.5"
   }
 }

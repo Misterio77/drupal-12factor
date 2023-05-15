@@ -12,7 +12,10 @@
 /update.php
 /web.config
 /sites/development.services.yml
+/sites/simpletest
 
+# Test site
+/sites/simpletest
 # Ignore public files (state and cache)
 /sites/*/files
 
