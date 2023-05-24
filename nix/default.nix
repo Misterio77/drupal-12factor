@@ -4,5 +4,8 @@ let
   composerProject = callPackage ./composer-project.nix { } ../.;
 in
   composerProject.overrideAttrs(oldAttrs: {
-    installPhase = "cp . $out";
+    installPhase = ''
+      mkdir -p $out
+      cp -r web vendor composer.json composer.lock $out
+    '';
   })
