@@ -56,6 +56,11 @@ With `pacman` (arch-based):
 sudo pacman -S php composer sqlite
 ```
 
+If you have [Nix](./docs/nix.md), you can get a shell with everything you need:
+```bash
+nix develop
+```
+
 ### Build and run
 
 Run `composer install` to get the dependencies and scaffold the webroot files.
@@ -100,6 +105,34 @@ rest assured, the files themselves won't be 777, just the parent dir).
 
 You can set up the site as usual; using either Drush (use `docker exec --latest
 -it drush`), through the web interface, or by copying your existing data.
+
+## Nix
+
+For more info on Nix and how to set it up, see [this doc](./docs/nix.md).
+
+### Development shell
+
+As mentioned, you can use `nix develop .` to get a development shell with
+everything you need. This method uses the local files for developing, as usual.
+
+### Building and running
+
+You can build the site with `nix build .`. The output will be an immutable
+directory (containing `web` and `vendor`) linked at `result`.
+
+Through `nix run`, you can easily spawn a script that runs `php -S` for you on
+the buit package. No need to build it first.
+
+To run drush, use `nix run .#drush`. Same as above, it acts on the built
+website artifact.
+
+You actually don't even need the repository cloned to build and run with nix!
+Try replacing the `.` argument with `github:misterio77/drupal-12factor`. For
+example:
+
+```
+nix run github:misterio77/drupal-12factor#serve
+```
 
 ## TODO
 

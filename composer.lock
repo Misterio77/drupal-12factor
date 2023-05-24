@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c68d424ab8bec9df6510675c5b23459",
+    "content-hash": "06a8dc571ddbeb0e374e567690713f37",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1828,6 +1828,44 @@
                 "source": "https://github.com/ralouphie/getallheaders/tree/develop"
             },
             "time": "2019-03-08T08:55:37+00:00"
+        },
+        {
+            "name": "stephank/composer-plugin-nixify",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stephank/composer-plugin-nixify.git",
+                "reference": "d93c4348388d714d7d81b41e34ccb2ae9c2131c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stephank/composer-plugin-nixify/zipball/d93c4348388d714d7d81b41e34ccb2ae9c2131c2",
+                "reference": "d93c4348388d714d7d81b41e34ccb2ae9c2131c2",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.1 || ^2.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Nixify\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nixify\\": "./src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "Composer plugin to help with Nix packaging",
+            "homepage": "https://github.com/stephank/composer-plugin-nixify",
+            "support": {
+                "issues": "https://github.com/stephank/composer-plugin-nixify/issues",
+                "source": "https://github.com/stephank/composer-plugin-nixify/tree/v1.1.0"
+            },
+            "time": "2021-09-05T14:46:45+00:00"
         },
         {
             "name": "symfony/console",
