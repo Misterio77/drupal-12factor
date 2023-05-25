@@ -1,11 +1,16 @@
-{ callPackage }:
+{ callPackage, caddy, php, phpPackages, sqlite }:
 
 let
   composerProject = callPackage ./composer-project.nix { } ../.;
 in
   composerProject.overrideAttrs(oldAttrs: {
+    buildInputs = oldAttrs.buildInputs ++ [
+      caddy
+      php
+      phpPackages.composer
+      sqlite
+    ];
     installPhase = ''
-      mkdir -p $out
-      cp -r web vendor composer.json composer.lock $out
+      cp . $out
     '';
   })

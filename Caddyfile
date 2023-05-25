@@ -1,0 +1,11 @@
+:8080 {
+  route "/files*" {
+    root {$DRUPAL_DATA_PATH:data}/public
+    uri strip_prefix "/files"
+    file_server browse
+  }
+  route {
+    root web
+    php_fastcgi localhost:9090
+  }
+}
