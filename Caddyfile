@@ -4,7 +4,7 @@
     path "/files*"
   }
   route @pub_files {
-    root * "{$DRUPAL_DATA_PATH:data}/public"
+    root * "{$DRUPAL_DATA_PATH:./data}/public"
     uri strip_prefix "/files"
     file_server browse
   }
@@ -27,19 +27,15 @@
     path "*.woff2"
   }
   route @module_assets {
-    root web
-    uri strip_prefix "/files"
+    root * "{$DRUPAL_PROJECT_ROOT:.}/web"
+    # root "web"
     file_server browse
   }
 
-  route /core/install.php {
-    root web
-    try_files core/install.php
-    php_fastcgi unix//tmp/drupal12factor-fpm.sock
-  }
   # For all other requests, use /index.php only
   route "*" {
-    root web
+    root * "{$DRUPAL_PROJECT_ROOT:.}/web"
+    # root "web"
     try_files index.php
     php_fastcgi unix//tmp/drupal12factor-fpm.sock
   }

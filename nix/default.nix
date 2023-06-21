@@ -20,8 +20,13 @@ in
     installPhase = let
       binName = finalAttrs.meta.mainProgram or finalAttrs.pname or finalAttrs.name;
     in ''
-      cp -r . $out
-      makeWrapper $out/bin/serve $out/bin/${binName} \
-        --prefix PATH : ${lib.makeBinPath finalAttrs.buildInputs}
+      mkdir -p $out
+      cp -r . $out/app
+      makeWrapper $out/app/bin/serve $out/bin/${binName} \
+        --prefix PATH : ${lib.makeBinPath finalAttrs.buildInputs} \
+        --prefix DRUPAL_PROJECT_ROOT : $out/app
+      makeWrapper $out/app/bin/drush $out/bin/drush \
+        --prefix PATH : ${lib.makeBinPath finalAttrs.buildInputs} \
+        --prefix DRUPAL_PROJECT_ROOT : $out/app
     '';
   })

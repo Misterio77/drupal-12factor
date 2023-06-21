@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Simple script to run php-fpm and caddy
+# Simple wrapper to run drush
 # It also sets DRUPAL_DATA_PATH if needed, and cd's into the project root
 
 set -euo pipefail
@@ -9,8 +9,9 @@ export DRUPAL_PROJECT_ROOT="$(realpath "${DRUPAL_PROJECT_ROOT:-$(dirname $(dirna
 echo >&2 "Using data path '$DRUPAL_DATA_PATH'"
 echo >&2 "Using project root '$DRUPAL_PROJECT_ROOT'"
 
-php-fpm -y "$DRUPAL_PROJECT_ROOT/php-fpm.conf" &
-caddy run --config "$DRUPAL_PROJECT_ROOT/Caddyfile" &
+if ! [ -f "$DRUPAL_PROJECT_ROOT/vendor/bin/drush" ]; then
+  echo >&2 "Drush is not installed. Try running 'composer install' first."
+  exit 1
+fi
 
-trap 'kill $(jobs -p)' EXIT
-wait
+"$DRUPAL_PROJECT_ROOT/vendor/bin/drush" --root="$DRUPAL_PROJECT_ROOT" "$@"
