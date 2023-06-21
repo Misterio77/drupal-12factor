@@ -8,14 +8,15 @@ RUN apk add --no-cache \
   php81-dom \
   php81-fpm \
   php81-gd \
+  php81-opcache \
   php81-pdo_mysql \
   php81-pdo_pgsql \
   php81-pdo_sqlite \
   php81-session \
   php81-simplexml \
   php81-tokenizer \
-  php81-xmlwriter \
-  php81-xml
+  php81-xml \
+  php81-xmlwriter
 
 RUN ln -s /usr/sbin/php-fpm81 /usr/sbin/php-fpm
 
