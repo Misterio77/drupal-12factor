@@ -7,18 +7,22 @@
     file_server browse
   }
 
-  # Other assets, usually from themes
-  # These are the webroot files we'll allow access to
+  # Other assets are assumed to come from the webroot
   @module_assets {
+    path "robots.txt"
     path "*.css"
-    path "*.js"
-    path "*.woff2"
-    path "*.ico"
-    path "*.svg"
+    path "*.eot"
     path "*.gif"
-    path "*.png"
-    path "*.jpg"
+    path "*.ico"
     path "*.jpeg"
+    path "*.jpg"
+    path "*.js"
+    path "*.map"
+    path "*.otf"
+    path "*.png"
+    path "*.svg"
+    path "*.woff"
+    path "*.woff2"
   }
   route @module_assets {
     root web
