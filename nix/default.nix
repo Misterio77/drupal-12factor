@@ -1,16 +1,27 @@
-{ callPackage, caddy, php, phpPackages, sqlite }:
+{ lib, callPackage, caddy, php, phpPackages, sqlite, makeWrapper }:
 
 let
   composerProject = callPackage ./composer-project.nix { } ../.;
 in
-  composerProject.overrideAttrs(oldAttrs: {
-    buildInputs = oldAttrs.buildInputs ++ [
-      caddy
+  composerProject.overrideAttrs(finalAttrs: prevAttrs: {
+    # Runtime deps
+    buildInputs = prevAttrs.buildInputs ++ [
       php
-      phpPackages.composer
+      caddy
       sqlite
     ];
-    installPhase = ''
-      cp . $out
+    # Build deps
+    nativeBuildInputs = [
+      php
+      phpPackages.composer
+      makeWrapper
+    ];
+
+    installPhase = let
+      binName = finalAttrs.meta.mainProgram or finalAttrs.pname or finalAttrs.name;
+    in ''
+      cp -r . $out
+      makeWrapper $out/bin/serve $out/bin/${binName} \
+        --prefix PATH : ${lib.makeBinPath finalAttrs.buildInputs}
     '';
   })

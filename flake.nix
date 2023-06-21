@@ -1,15 +1,13 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, ... }: let
-    systems = ["x86_64-linux" "aarch64-linux"];
-    pkgsFor = nixpkgs.legacyPackages;
-    forEachSystem = f: nixpkgs.lib.genAttrs systems (system: f system pkgsFor.${system});
+  outputs = { nixpkgs, flake-utils, ... }:
+  flake-utils.lib.eachDefaultSystem (system: let
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
-    packages = forEachSystem (system: pkgs: {
-      default = pkgs.callPackage ./nix/default.nix { };
-    });
-  };
+    packages.default = pkgs.callPackage ./nix/default.nix { };
+  });
 }

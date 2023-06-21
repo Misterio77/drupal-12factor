@@ -184,7 +184,7 @@ let
   );
 
 in stdenv.mkDerivation {
-  name = "zoocha_drupal-12factor";
+  name = "drupal12f";
   inherit src;
 
   # Make sure the build uses the right PHP version everywhere.
