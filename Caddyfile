@@ -1,11 +1,35 @@
-:8080 {
-  route "/files*" {
+{$DRUPAL_WEB_HOSTNAME}:{$DRUPAL_WEB_PORT:8080} {
+  # Files from the public data directory
+  @pub_files "/files/*"
+  route @pub_files {
     root {$DRUPAL_DATA_PATH:data}/public
     uri strip_prefix "/files"
     file_server browse
   }
-  route {
+
+  # Other assets, usually from themes
+  # These are the webroot files we'll allow access to
+  @module_assets {
+    path "*.css"
+    path "*.js"
+    path "*.woff2"
+    path "*.ico"
+    path "*.svg"
+    path "*.gif"
+    path "*.png"
+    path "*.jpg"
+    path "*.jpeg"
+  }
+  route @module_assets {
     root web
-    php_fastcgi localhost:9090
+    uri strip_prefix "/files"
+    file_server browse
+  }
+
+  # For all other requests, use /index.php only
+  route "*" {
+    root web
+    try_files index.php
+    php_fastcgi unix//tmp/drupal12factor-fpm.sock
   }
 }

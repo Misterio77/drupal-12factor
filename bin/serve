@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+php-fpm -y php-fpm.conf &
+caddy run &
+
+wait
