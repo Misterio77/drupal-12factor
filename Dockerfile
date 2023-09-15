@@ -29,16 +29,11 @@ RUN composer install --no-interaction --no-progress --download-only
 COPY web /app/web
 RUN composer install --no-interaction --no-progress --optimize-autoloader && rm ~/.composer/cache -r
 # Copy everything else
-ENV DRUPAL_PROJECT_ROOT=/app
-COPY php-fpm.conf Caddyfile /app/
-COPY bin/* /app/bin/
+COPY php-fpm.conf Caddyfile serve.sh /app/
 
 # We won't mutate anything, so create a user to drop privileges
 RUN adduser -D -h /data drupal
 USER drupal
-
-# Add our scripts to PATH
-ENV PATH="$PATH:/app/bin"
 
 ENV DRUPAL_DATA_PATH=/data
 VOLUME /data
@@ -46,4 +41,4 @@ VOLUME /data
 ENV DRUPAL_WEB_PORT=8080
 EXPOSE 8080
 
-CMD ["serve"]
+CMD ["/app/serve"]

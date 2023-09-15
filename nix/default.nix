@@ -22,11 +22,6 @@ in
     in ''
       mkdir -p $out
       cp -r . $out/app
-      makeWrapper $out/app/bin/serve $out/bin/${binName} \
-        --prefix PATH : ${lib.makeBinPath finalAttrs.buildInputs} \
-        --prefix DRUPAL_PROJECT_ROOT : $out/app
-      makeWrapper $out/app/bin/drush $out/bin/drush \
-        --prefix PATH : ${lib.makeBinPath finalAttrs.buildInputs} \
-        --prefix DRUPAL_PROJECT_ROOT : $out/app
+      makeWrapper $out/app/serve.sh $out/bin/${binName} --prefix PATH : ${lib.makeBinPath finalAttrs.buildInputs} \
     '';
   })

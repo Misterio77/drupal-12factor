@@ -10,7 +10,7 @@
 
 # Mutable data path
 # Default to a "data" directory in the project root path
-$data = getenv('DRUPAL_DATA_PATH') ?: realpath('../') . '/data';
+$data = getenv('DRUPAL_DATA_PATH') ?: getenv('PWD') . '/data';
 
 # Use sqlite by default, it's a lot more convenient for local development
 # For production, using mysql or postgres is preferrable.

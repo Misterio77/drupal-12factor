@@ -1,9 +1,6 @@
 {$DRUPAL_WEB_HOSTNAME}:{$DRUPAL_WEB_PORT:8080} {
   # Files from the public data directory
-  @pub_files {
-    path "/files*"
-  }
-  route @pub_files {
+  route "/files*" {
     root * "{$DRUPAL_DATA_PATH:./data}/public"
     uri strip_prefix "/files"
     file_server browse
@@ -27,21 +24,21 @@
     path "*.woff2"
   }
   route @module_assets {
-    root * "{$DRUPAL_PROJECT_ROOT:.}/web"
+    root * web
     file_server browse
   }
 
   # The only php file other than index.php we'll allow access to
   # Feel free to remove this block if interactive installation is not relevant
   route "/core/install.php" {
-    root * "{$DRUPAL_PROJECT_ROOT:.}/web"
+    root * web
     try_files core/install.php
     php_fastcgi unix//tmp/drupal12factor-fpm.sock
   }
 
   # For all other requests
   route "*" {
-    root * "{$DRUPAL_PROJECT_ROOT:.}/web"
+    root * web
     try_files index.php
     php_fastcgi unix//tmp/drupal12factor-fpm.sock
   }
