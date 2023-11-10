@@ -1,5 +1,6 @@
 {
   "name": "zoocha/drupal-12factor",
+  "description": "An attempt on making drupal less stateful",
   "type": "project",
   "repositories": [
     {
@@ -11,12 +12,11 @@
   "require": {
     "composer/installers": "^2.0",
     "drupal/core-composer-scaffold": "^10.0",
-    "drupal/core-recommended": "^10.0",
-    "stephank/composer-plugin-nixify": "^1.1"
+    "drush/drush": "^11.5",
+    "drupal/core-recommended": "^10.0"
   },
   "require-dev": {
     "drupal/core-dev": "^10.0",
-    "drush/drush": "^11.5",
     "topfloor/composer-cleanup-vcs-dirs": "^1.1"
   },
   "prefer-stable": true,
@@ -27,8 +27,7 @@
       "drupal/core-composer-scaffold": true,
       "phpstan/extension-installer": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
-      "topfloor/composer-cleanup-vcs-dirs": true,
-      "stephank/composer-plugin-nixify": true
+      "topfloor/composer-cleanup-vcs-dirs": true
     },
     "sort-packages": true,
     "platform": {
@@ -48,8 +47,6 @@
         "[project-root]/.gitignore": false
       }
     },
-    "nix-expr-path": "nix/composer-project.nix",
-    "generate-default-nix": false,
     "installer-paths": {
       "web/core": [
         "type:drupal-core"
