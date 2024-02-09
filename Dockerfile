@@ -44,4 +44,6 @@ VOLUME /data
 ENV DRUPAL_WEB_PORT=8080
 EXPOSE 8080
 
+ENV PATH="${PATH}:/app/bin"
+
 CMD ["/app/bin/serve"]
