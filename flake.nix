@@ -9,28 +9,29 @@
     pkgs = nixpkgs.legacyPackages.${system};
   in rec {
     packages.default = pkgs.php81.buildComposerProject rec {
-      pname = "drupal-12factor";
+      pname = "drupal-12f";
       version = "0.1";
       src = ./.;
       vendorHash = "sha256-h2XEbAPQJD/jCR7ETzsYL9j1ZFPZwEP98oOAaO3Rubs=";
       composerNoScripts = false;
       composerNoPlugins = false;
 
-      buildInputs = [ pkgs.php81 pkgs.caddy pkgs.sqlite ];
-      installPhase = ''
-        runHook preInstall
-        app=$out/share/php/${pname}
-        makeWrapper $app/serve.sh $out/bin/${pname} \
+      buildInputs = [ pkgs.php81 pkgs.sqlite pkgs.caddy ];
+      postInstall = ''
+        app=$out/share/php/$pname
+        makeWrapper $app/bin/serve $out/bin/serve \
           --prefix PATH : ${pkgs.lib.makeBinPath buildInputs}
         makeWrapper $app/vendor/bin/drush $out/bin/drush \
-          --prefix PATH : ${pkgs.lib.makeBinPath buildInputs} \
-          --add-flags "--root=$app"
-        runHook postInstall
+          --prefix PATH : ${pkgs.lib.makeBinPath buildInputs}
       '';
+      meta.mainProgram = "serve";
     };
     devShells.default = pkgs.mkShell {
-      name = "drupal-12factor";
+      name = "drupal-12f";
       inputsFrom = [ packages.default ];
+      shellHook = ''
+        export PATH=$PATH:$(pwd)/bin
+      '';
     };
   });
 }

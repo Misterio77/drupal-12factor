@@ -62,7 +62,7 @@ nix develop
 
 Run `composer install` to get the dependencies and scaffold the webroot files.
 
-Then run `./serve.sh` to start up caddy and php-fpm.
+Then run `./bin/serve` to start up caddy and php-fpm.
 
 You can set up the site as usual; using either Drush (use `composer exec
 drush`), through the web interface, or by copying your existing data.
@@ -75,7 +75,7 @@ drush`), through the web interface, or by copying your existing data.
 docker build .
 ```
 
-The image contains all the source code and dependencies, and runs `serve.sh`
+The image contains all the source code and dependencies, and runs `./bin/serve`
 upon starting the container.
 
 ### Run
@@ -103,7 +103,7 @@ You can set up the site as usual; using either Drush (use `docker exec --latest
 
 You can use `nix develop` to get a development shell with the dependencies you
 need to build and run the site manually. You can then use `composer` and
-`serve.sh` as usual.
+`serve` as usual.
 
 ### Building and running
 
@@ -114,22 +114,22 @@ site with `nix build`. The output will be an immutable directory (containing
 ```
 nix build
 ./result/bin/drush si -y
-./result/bin/drupal-12factor
+./result/bin/serve
 ```
 
 Alternatively try `nix shell` (it builds and puts the `result/bin` in your `PATH`):
 ```
 nix shell
 drush si -y
-drupal-12factor
+serve
 ```
 
 You actually don't even need the repository cloned to build and run with Nix! Try it like so:
 
 ```
-nix shell github:misterio77/drupal-12factor
+nix shell github:misterio77/serve
 drush si -y
-drupal-12factor
+serve
 ```
 
 ## TODO
