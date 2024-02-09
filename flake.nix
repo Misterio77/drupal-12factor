@@ -7,25 +7,30 @@
   outputs = { nixpkgs, flake-utils, ... }:
   flake-utils.lib.eachDefaultSystem (system: let
     pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    packages = {
-      default = pkgs.php81.buildComposerProject rec {
-        pname = "drupal-12factor";
-        version = "0.1";
-        src = ./.;
-        vendorHash = "sha256-r02U4yThstgaPhUelI8I9dT4ZnyJxWYuPKgUL9WZbJY=";
-        composerNoScripts = false;
-        composerNoPlugins = false;
+  in rec {
+    packages.default = pkgs.php81.buildComposerProject rec {
+      pname = "drupal-12factor";
+      version = "0.1";
+      src = ./.;
+      vendorHash = "sha256-r02U4yThstgaPhUelI8I9dT4ZnyJxWYuPKgUL9WZbJY=";
+      composerNoScripts = false;
+      composerNoPlugins = false;
 
-        nativeBuildInputs = [ pkgs.php81 pkgs.caddy pkgs.sqlite ];
-        installPhase = ''
-          runHook preInstall
-          app=$out/share/php/${pname}
-          makeWrapper $app/bin/serve $out/bin/${pname} --prefix PATH : ${pkgs.lib.makeBinPath nativeBuildInputs}
-          makeWrapper $app/bin/drush $out/bin/drush --prefix PATH : ${pkgs.lib.makeBinPath nativeBuildInputs}
-          runHook postInstall
-        '';
-      };
+      nativeBuildInputs = [ pkgs.php81 pkgs.caddy pkgs.sqlite ];
+      installPhase = ''
+        runHook preInstall
+        app=$out/share/php/${pname}
+        makeWrapper $app/bin/serve $out/bin/${pname} --prefix PATH : ${pkgs.lib.makeBinPath nativeBuildInputs}
+        makeWrapper $app/bin/drush $out/bin/drush --prefix PATH : ${pkgs.lib.makeBinPath nativeBuildInputs}
+        runHook postInstall
+      '';
+    };
+    devShells.default = pkgs.mkShell {
+      name = "drupal-12factor";
+      inputsFrom = [ packages.default ];
+      shellHook = ''
+        export PATH=$PATH:$(pwd)/bin
+      '';
     };
   });
 }
