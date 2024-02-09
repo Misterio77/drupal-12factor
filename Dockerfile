@@ -31,8 +31,7 @@ COPY web /app/web
 COPY patches /app/patches
 RUN composer install --no-interaction --no-progress --optimize-autoloader && rm ~/.composer/cache -r
 # Copy everything else
-COPY php-fpm.conf Caddyfile /app/
-COPY bin /app/bin
+COPY php-fpm.conf Caddyfile serve.sh /app/
 
 # We won't mutate anything, so create a user to drop privileges
 RUN adduser -D -h /data drupal
@@ -44,6 +43,6 @@ VOLUME /data
 ENV DRUPAL_WEB_PORT=8080
 EXPOSE 8080
 
-ENV PATH="${PATH}:/app/bin"
+ENV PATH="${PATH}:/app:/app/vendor/bin"
 
-CMD ["/app/bin/serve"]
+CMD ["/app/serve.sh"]

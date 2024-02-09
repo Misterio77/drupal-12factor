@@ -25,12 +25,11 @@ $databases['default']['default'] = array(
 );
 
 $settings = array(
-  'file_public_path' =>      "$data/public/$site",
-  'file_public_base_url' =>  "/files/$site",
-  'file_private_path' =>     "$data/private/$site",
-  'config_directory_name' => "$data/config/$site",
-  'config_sync_directory' => "$data/sync/$site",
-  'hash_salt' =>             "$data/secrets/$site/salt.key",
+  'file_public_path' =>      "$data/public",
+  'file_public_base_url' =>  "/files",
+  'file_private_path' =>     "$data/private",
+  'config_sync_directory' => "$data/sync",
+  'hash_salt' =>             "$data/salt.key",
 );
 
 # Create the directories and salt as needed.
@@ -45,9 +44,6 @@ if (!is_dir($settings['file_public_path'])) {
 }
 if (!is_dir($settings['file_private_path'])) {
   mkdir($settings['file_private_path'], recursive: true);
-}
-if (!is_dir($settings['config_directory_name'])) {
-  mkdir($settings['config_directory_name'], recursive: true);
 }
 if (!is_dir($settings['config_sync_directory'])) {
   mkdir($settings['config_sync_directory'], recursive: true);

@@ -1,5 +1,5 @@
 {$DRUPAL_WEB_HOSTNAME}:{$DRUPAL_WEB_PORT:8080} {
-  root * web
+  root * {$DRUPAL_APP_ROOT:.}/web
   php_fastcgi unix//tmp/drupal12factor-fpm.sock
   file_server
 }

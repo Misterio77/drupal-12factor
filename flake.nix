@@ -12,16 +12,19 @@
       pname = "drupal-12factor";
       version = "0.1";
       src = ./.;
-      vendorHash = "sha256-r02U4yThstgaPhUelI8I9dT4ZnyJxWYuPKgUL9WZbJY=";
+      vendorHash = "sha256-h2XEbAPQJD/jCR7ETzsYL9j1ZFPZwEP98oOAaO3Rubs=";
       composerNoScripts = false;
       composerNoPlugins = false;
 
-      nativeBuildInputs = [ pkgs.php81 pkgs.caddy pkgs.sqlite ];
+      buildInputs = [ pkgs.php81 pkgs.caddy pkgs.sqlite ];
       installPhase = ''
         runHook preInstall
         app=$out/share/php/${pname}
-        makeWrapper $app/bin/serve $out/bin/${pname} --prefix PATH : ${pkgs.lib.makeBinPath nativeBuildInputs}
-        makeWrapper $app/bin/drush $out/bin/drush --prefix PATH : ${pkgs.lib.makeBinPath nativeBuildInputs}
+        makeWrapper $app/serve.sh $out/bin/${pname} \
+          --prefix PATH : ${pkgs.lib.makeBinPath buildInputs}
+        makeWrapper $app/vendor/bin/drush $out/bin/drush \
+          --prefix PATH : ${pkgs.lib.makeBinPath buildInputs} \
+          --add-flags "--root=$app"
         runHook postInstall
       '';
     };
