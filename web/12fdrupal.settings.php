@@ -33,7 +33,7 @@ $settings = array(
   'hash_salt' =>             "$data/secrets/$site/salt.key",
 );
 
-# Create the directories, public files symlink, and hash_salt, as needed.
+# Create the directories and salt as needed.
 
 use Drupal\Component\Utility\Crypt;
 
