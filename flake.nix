@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -8,22 +8,24 @@
   flake-utils.lib.eachDefaultSystem (system: let
     pkgs = nixpkgs.legacyPackages.${system};
   in {
-    packages.default = with pkgs; php.buildComposerProject (f: {
-      pname = "drupal-12factor";
-      version = "0.1";
-      src = ./.;
-      vendorHash = "sha256-CfQYMIBiVMhbPXwVitS9yacmLxbfhQ+72igLScec8kA=";
-      composerNoScripts = false;
-      composerNoPlugins = false;
-      installPhase = ''
-        runHook preInstall
+    packages = {
+      default = pkgs.php81.buildComposerProject rec {
+        pname = "drupal-12factor";
+        version = "0.1";
+        src = ./.;
+        vendorHash = "sha256-r02U4yThstgaPhUelI8I9dT4ZnyJxWYuPKgUL9WZbJY=";
+        composerNoScripts = false;
+        composerNoPlugins = false;
 
-        mv $out/share/php/${f.pname} $out/app
-        rm $out/share{/php,} -d
-        makeWrapper $out/app/serve.sh $out/bin/${f.pname} --prefix PATH : ${lib.makeBinPath [php caddy sqlite]}
-
-        runHook postInstall
-      '';
-    });
+        nativeBuildInputs = [ pkgs.php81 pkgs.caddy pkgs.sqlite ];
+        installPhase = ''
+          runHook preInstall
+          app=$out/share/php/${pname}
+          makeWrapper $app/bin/serve $out/bin/${pname} --prefix PATH : ${pkgs.lib.makeBinPath nativeBuildInputs}
+          makeWrapper $app/bin/drush $out/bin/drush --prefix PATH : ${pkgs.lib.makeBinPath nativeBuildInputs}
+          runHook postInstall
+        '';
+      };
+    };
   });
 }

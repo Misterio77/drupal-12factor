@@ -1,6 +1,7 @@
 {
   "name": "zoocha/drupal-12factor",
   "description": "An attempt on making drupal less stateful",
+  "license": "proprietary",
   "type": "project",
   "repositories": [
     {
@@ -11,9 +12,11 @@
 
   "require": {
     "composer/installers": "^2.0",
+    "cweagans/composer-patches": "^1.7",
+    "drupal/core": "^10.0",
+    "drupal/core-recommended": "^10.0",
     "drupal/core-composer-scaffold": "^10.0",
-    "drush/drush": "^11.5",
-    "drupal/core-recommended": "^10.0"
+    "drush/drush": "^11.5"
   },
   "require-dev": {
     "drupal/core-dev": "^10.0",
@@ -27,7 +30,8 @@
       "drupal/core-composer-scaffold": true,
       "phpstan/extension-installer": true,
       "dealerdirect/phpcodesniffer-composer-installer": true,
-      "topfloor/composer-cleanup-vcs-dirs": true
+      "topfloor/composer-cleanup-vcs-dirs": true,
+      "cweagans/composer-patches": true
     },
     "sort-packages": true,
     "platform": {
@@ -45,6 +49,11 @@
         "[project-root]/.gitattributes": false,
         "[project-root]/.editorconfig": false,
         "[project-root]/.gitignore": false
+      }
+    },
+    "patches": {
+      "drupal/core": {
+        "Aggregated assets fix": "patches/drupal-core.3380670.assets-routing.2.patch"
       }
     },
     "installer-paths": {

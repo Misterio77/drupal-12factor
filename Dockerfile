@@ -1,6 +1,7 @@
 FROM alpine:3.18.2
 USER root
 RUN apk add --no-cache \
+  patch \
   caddy \
   sqlite \
   composer \
@@ -27,9 +28,11 @@ COPY composer.json composer.lock /app/
 RUN composer install --no-interaction --no-progress --download-only
 # Then, copy web and do the scaffolding
 COPY web /app/web
+COPY patches /app/patches
 RUN composer install --no-interaction --no-progress --optimize-autoloader && rm ~/.composer/cache -r
 # Copy everything else
-COPY php-fpm.conf Caddyfile serve.sh /app/
+COPY php-fpm.conf Caddyfile /app/
+COPY bin /app/bin
 
 # We won't mutate anything, so create a user to drop privileges
 RUN adduser -D -h /data drupal
@@ -41,4 +44,4 @@ VOLUME /data
 ENV DRUPAL_WEB_PORT=8080
 EXPOSE 8080
 
-CMD ["/app/serve"]
+CMD ["/app/bin/serve"]

@@ -1,45 +1,5 @@
 {$DRUPAL_WEB_HOSTNAME}:{$DRUPAL_WEB_PORT:8080} {
-  # Files from the public data directory
-  route "/files*" {
-    root * "{$DRUPAL_DATA_PATH:./data}/public"
-    uri strip_prefix "/files"
-    file_server browse
-  }
-
-  # Other assets are assumed to come from the webroot
-  @module_assets {
-    path "robots.txt"
-    path "*.css"
-    path "*.eot"
-    path "*.gif"
-    path "*.ico"
-    path "*.jpeg"
-    path "*.jpg"
-    path "*.js"
-    path "*.map"
-    path "*.otf"
-    path "*.png"
-    path "*.svg"
-    path "*.woff"
-    path "*.woff2"
-  }
-  route @module_assets {
-    root * web
-    file_server browse
-  }
-
-  # The only php file other than index.php we'll allow access to
-  # Feel free to remove this block if interactive installation is not relevant
-  route "/core/install.php" {
-    root * web
-    try_files core/install.php
-    php_fastcgi unix//tmp/drupal12factor-fpm.sock
-  }
-
-  # For all other requests
-  route "*" {
-    root * web
-    try_files index.php
-    php_fastcgi unix//tmp/drupal12factor-fpm.sock
-  }
+  root * web
+  php_fastcgi unix//tmp/drupal12factor-fpm.sock
+  file_server
 }

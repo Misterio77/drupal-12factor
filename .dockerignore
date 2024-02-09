@@ -1,7 +1,5 @@
 Dockerfile
-docs
 flake.*
-nix
 README.md
 .git
 .gitignore

@@ -1,0 +1,16 @@
+diff --git a/core/modules/system/src/Routing/AssetRoutes.php b/core/modules/system/src/Routing/AssetRoutes.php
+index ac0424b6fe..c86489a64d 100644
+--- a/core/modules/system/src/Routing/AssetRoutes.php
++++ b/core/modules/system/src/Routing/AssetRoutes.php
+@@ -39,10 +39,7 @@ public static function create(ContainerInterface $container) {
+    */
+   public function routes(): array {
+     $routes = [];
+-    // Generate assets. If clean URLs are disabled image derivatives will always
+-    // be served through the routing system. If clean URLs are enabled and the
+-    // image derivative already exists, PHP will be bypassed.
+-    $directory_path = $this->streamWrapperManager->getViaScheme('assets')->getDirectoryPath();
++    $directory_path = parse_url($this->streamWrapperManager->getViaScheme('assets')->baseUrl(), PHP_URL_PATH);
+ 
+     $routes['system.css_asset'] = new Route(
+       '/' . $directory_path . '/css/{file_name}',

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export DRUPAL_DATA_PATH="${DRUPAL_DATA_PATH:-"$(pwd)/data"}"
+cd "$(dirname "$(dirname -- "$0")")"
+
+./vendor/bin/drush "$@"
