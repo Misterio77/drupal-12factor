@@ -31,9 +31,6 @@
     devShells.default = pkgs.mkShell {
       name = "drupal-12factor";
       inputsFrom = [ packages.default ];
-      shellHook = ''
-        export PATH=$PATH:$(pwd)/bin
-      '';
     };
   });
 }

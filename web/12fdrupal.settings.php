@@ -53,3 +53,7 @@ if (!file_exists($settings['hash_salt'])) {
   mkdir(dirname($settings['hash_salt']), recursive: true);
   file_put_contents($settings['hash_salt'], Crypt::randomBytesBase64(55));
 }
+
+if (file_exists("$data/settings.local.php")) {
+  require "$data/settings.local.php";
+}
