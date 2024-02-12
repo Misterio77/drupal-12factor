@@ -4,22 +4,22 @@ The idea here is to correctly separate Drupal's state from source code and depen
 
 # About
 
-This makes it easier to correctly package Drupal with tools such as Docker and Nix, bringing a lot of advantages to the table.
+This makes it easier to correctly package Drupal with tools such as Docker and Nix.
 
 An example would be building a Docker image that fully contains the software artifacts (custom and vendor code), and then run a container that is configurable entirely by environment variables and has an explicitly separate path for state. This brings a series of advantages:
 - Backing up and overall reasoning about the state is much easier, as it has a dedicated location.
-- The configuration parameters related to each deployment site do not need to be committed, or present on files at all, as they can be configured through environment variables. Configurations can be changed without re-uploading software artifacts.
+- The configuration parameters related to each deployed site do not need to be committed, or present on files at all, as they can be configured through environment variables. Configuration can be changed without re-building software artifacts (e.g. same artifact for dev/prod envs).
 - Files originating from dependencies (be them located at `vendor` or `web`) do not have to be committed with the code neither backed up with the state.
 
-Check `web/12fdrupal.settings.php` for more info. All the options to nstall a site are configured with sane defaults and can be overwritten through nvironment variables.
+Check `web/12fdrupal.settings.php` for more info. All the options to install a site are configured with sane defaults and can be overwritten through environment variables.
 
-If you need an escape hatch, you can add a `local.settings.php` in the data irectory.
+If you need an escape hatch, you can add a `local.settings.php` in the data directory.
 
 # Usage
 
-This project, by default, uses the `data` directory (in your working directory) o store any state (including a SQLite db). This can be overwritten by changing he `DRUPAL_DATA_PATH` environment variable.
+This project, by default, uses the `data` directory (in your working directory) to store any state (including a SQLite db). This can be overwritten by changing he `DRUPAL_DATA_PATH` environment variable.
 
-Instead of SQLite, you can use a different db through `DRUPAL_DB_*` environment ariables. See [12fdrupal.settings.php](./web/12fdrupal.settings.php).
+Instead of SQLite, you can use a different db through `DRUPAL_DB_*` environment variables. See [12fdrupal.settings.php](./web/12fdrupal.settings.php).
 
 ## Manually
 
@@ -48,14 +48,14 @@ Run `composer install` to get the dependencies and scaffold the webroot files.
 
 Then run `./bin/serve` to start up caddy and php-fpm.
 
-You can set up the site as usual; using either Drush (use `composer exec rush`), through the web interface, or by copying your existing data.
+You can set up the site as usual; using either Drush (use `composer exec drush`), through the web interface, or by copying your existing data.
 
 ## Docker
 
 ### Build
 
 ```bash
-docker build .
+docker build -t drupal-12f .
 ```
 
 The image contains all the source code and dependencies, and runs `./bin/serve` pon starting the container.
@@ -63,7 +63,7 @@ The image contains all the source code and dependencies, and runs `./bin/serve` 
 ### Run
 
 ```bash
-docker run -p 8080:8080 $(docker build . -q)
+docker run -p 8080:8080 drupal-12f
 ```
 
 This will bind the port to `8080`. The format is `host:container`, so change he **first** number if you wish to bind to another port on your machine.
@@ -78,11 +78,11 @@ You can set up the site as usual; using either Drush (use `docker exec --latest 
 
 ### Development shell
 
-You can use `nix develop` to get a development shell with the dependencies you eed to build and run the site manually. You can then use `composer` and serve` as usual.
+You can use `nix develop` to get a development shell with the dependencies required to iterate. You can then use `composer` and `./bin/serve` as usual.
 
 ### Building and running
 
-For a more final build (similarly to Docker), you can use Nix to package the ite with `nix build`. The output will be an immutable directory (containing web`, `vendor`, and the wrapped serve script) linked at `result`:
+For a more final build (similarly to Docker), you can use Nix to package the site with `nix build`. The output will be an immutable directory (containing web`, `vendor`, and the wrapped serve script) linked at `result`:
 
 ```
 nix build
