@@ -22,7 +22,8 @@
         makeWrapper $app/bin/serve $out/bin/serve \
           --prefix PATH : ${pkgs.lib.makeBinPath buildInputs}
         makeWrapper $app/vendor/bin/drush $out/bin/drush \
-          --prefix PATH : ${pkgs.lib.makeBinPath buildInputs}
+          --prefix PATH : ${pkgs.lib.makeBinPath buildInputs} \
+          --add-flags "--root=$app"
       '';
       meta.mainProgram = "serve";
     };
