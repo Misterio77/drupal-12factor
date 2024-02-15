@@ -100,7 +100,7 @@ serve
 You actually don't even need the repository cloned to build and run with Nix! Try it like so:
 
 ```
-nix shell github:misterio77/serve
+nix shell github:zoocha/drupal-12factor
 drush si -y
 serve
 ```
