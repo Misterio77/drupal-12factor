@@ -34,6 +34,8 @@ RUN composer install --no-interaction --no-progress --optimize-autoloader && rm 
 COPY php-fpm.conf Caddyfile /app/
 COPY bin /app/bin
 
+# Make read-only
+RUN chmod -R a-w /app
 # We won't mutate anything, so create a user to drop privileges
 RUN adduser -D -h /data drupal
 USER drupal
