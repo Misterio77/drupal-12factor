@@ -17,7 +17,7 @@ If you need an escape hatch, you can add a `local.settings.php` in the data dire
 
 # Usage
 
-This project, by default, uses the `data` directory (in your working directory) to store any state (including a SQLite db). This can be overwritten by changing he `DRUPAL_DATA_PATH` environment variable.
+This project, by default, uses the `data` directory (in your working directory) to store any state (including a SQLite db). This can be overwritten by changing the `DRUPAL_DATA_PATH` environment variable.
 
 Instead of SQLite, you can use a different db through `DRUPAL_DB_*` environment variables. See [12fdrupal.settings.php](./web/12fdrupal.settings.php).
 
@@ -58,7 +58,7 @@ You can set up the site as usual; using either Drush (use `composer exec drush`)
 docker build -t drupal-12f .
 ```
 
-The image contains all the source code and dependencies, and runs `./bin/serve` pon starting the container.
+The image contains all the source code and dependencies, and runs `./bin/serve` upon starting the container.
 
 ### Run
 
@@ -66,7 +66,7 @@ The image contains all the source code and dependencies, and runs `./bin/serve` 
 docker run -p 8080:8080 drupal-12f
 ```
 
-This will bind the port to `8080`. The format is `host:container`, so change he **first** number if you wish to bind to another port on your machine.
+This will bind the port to `8080`. The format is `host:container`, so change the **first** number if you wish to bind to another port on your machine.
 
 As mentioned in the manual setup, it will default to a SQLite database, and can e overwritten with `DRUPAL_DB_*` variables.
 
@@ -109,4 +109,4 @@ serve
 
 - Investigate possibility of having source code out of webroot entirely ([drupal-paranoia](https://github.com/drupal-composer/drupal-paranoia)?)
 - Make caddyfile more explicit about what is served
-  - Avoid depending on the php router to serve public files
+  - Avoid depending on the PHP router to serve public files
