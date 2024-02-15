@@ -82,7 +82,7 @@ You can use `nix develop` to get a development shell with the dependencies requi
 
 ### Building and running
 
-For a more final build (similarly to Docker), you can use Nix to package the site with `nix build`. The output will be an immutable directory (containing web`, `vendor`, and the wrapped serve script) linked at `result`:
+For a more final build (similarly to Docker), you can use Nix to package the site with `nix build`. The output will be an immutable directory (containing `web`, `vendor`, and the wrapped serve script) linked at `result`:
 
 ```
 nix build
