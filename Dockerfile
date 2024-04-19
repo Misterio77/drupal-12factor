@@ -4,22 +4,30 @@ RUN apk add --no-cache \
   patch \
   caddy \
   sqlite \
-  composer \
+  curl \
   php81 \
+  php81-curl \
   php81-dom \
   php81-fpm \
   php81-gd \
+  php81-mbstring \
+  php81-iconv \
   php81-opcache \
   php81-pdo_mysql \
   php81-pdo_pgsql \
   php81-pdo_sqlite \
+  php81-phar \
   php81-session \
   php81-simplexml \
   php81-tokenizer \
   php81-xml \
   php81-xmlwriter
 
-RUN ln -s /usr/sbin/php-fpm81 /usr/sbin/php-fpm
+RUN ln -sf /usr/sbin/php-fpm81 /usr/sbin/php-fpm
+RUN ln -sf /usr/bin/php81 /usr/bin/php
+
+# Set up composer
+RUN curl -s https://raw.githubusercontent.com/composer/getcomposer.org/9f6b66d/web/installer | php -- --version="2.6.5" --filename="/usr/bin/composer"
 
 # First download deps but don't do anything
 # This makes it so that the cache does not depend on "web"
