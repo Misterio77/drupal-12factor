@@ -25,7 +25,7 @@ $databases['default']['default'] = array(
 );
 
 $settings = array(
-  'file_public_path' =>      "$data/public",
+  'file_public_path' =>      "$data/public/files",
   'file_public_base_url' =>  "/files",
   'file_private_path' =>     "$data/private",
   'config_sync_directory' => "$data/sync",

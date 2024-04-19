@@ -1,5 +1,37 @@
+{
+  debug
+}
 {$DRUPAL_WEB_HOSTNAME}:{$DRUPAL_WEB_PORT:8080} {
-  root * {$DRUPAL_APP_ROOT:.}/web
-  php_fastcgi unix//tmp/drupal12factor-fpm.sock
-  file_server
+  @static_public {
+    file {
+      root {$DRUPAL_DATA_PATH:./data}/public
+      try_files {path}
+    }
+    path /files/*
+  }
+  handle @static_public {
+    root {$DRUPAL_DATA_PATH:./data}/public
+    file_server
+  }
+
+  @static_drupal {
+    file {
+      root {$DRUPAL_APP_ROOT:.}/web
+      try_files {path}
+    }
+    not path *.php
+  }
+  handle @static_drupal {
+    root {$DRUPAL_APP_ROOT:.}/web
+    file_server
+  }
+
+  @php {
+    not path favicon.ico
+  }
+  handle @php {
+    root {$DRUPAL_APP_ROOT:.}/web
+    rewrite * /index.php
+    php_fastcgi unix//tmp/drupal12factor-fpm.sock
+  }
 }
