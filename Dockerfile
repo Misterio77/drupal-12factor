@@ -1,4 +1,4 @@
-FROM alpine:3.18.2
+FROM alpine:3.19.1
 USER root
 RUN apk add --no-cache \
   patch \
@@ -27,7 +27,7 @@ RUN ln -sf /usr/sbin/php-fpm81 /usr/sbin/php-fpm
 RUN ln -sf /usr/bin/php81 /usr/bin/php
 
 # Set up composer
-RUN curl -s https://raw.githubusercontent.com/composer/getcomposer.org/9f6b66d/web/installer | php -- --version="2.6.5" --filename="/usr/bin/composer"
+RUN curl -s https://raw.githubusercontent.com/composer/getcomposer.org/9f6b66d/web/installer | php -- --version="2.7.3" --filename="/usr/bin/composer"
 
 # First download deps but don't do anything
 # This makes it so that the cache does not depend on "web"
