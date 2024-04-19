@@ -70,7 +70,7 @@ This will bind the port to `8080`. The format is `host:container`, so change the
 
 As mentioned in the manual setup, it will default to a SQLite database, and can e overwritten with `DRUPAL_DB_*` variables.
 
-If you want to persist the data outside the container, add a volume argument to docker run`. You can either use a named volume: `-v drupal-data:/app/data`; or ind to a host directory: `-v ./data:/app/data`.
+If you want to persist the data outside the container, add a volume argument to `docker run`. You can either use a named volume: `-v drupal-data:/app/data`; or bind to a host directory: `-v ./data:/app/data`.
 
 You can set up the site as usual; using either Drush (use `docker exec --latest it drush`), through the web interface, or by copying your existing data.
 
