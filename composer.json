@@ -52,9 +52,6 @@
       }
     },
     "patches": {
-      "drupal/core": {
-        "Aggregated assets fix": "patches/drupal-core.3380670.assets-routing.2.patch"
-      }
     },
     "installer-paths": {
       "web/core": [
