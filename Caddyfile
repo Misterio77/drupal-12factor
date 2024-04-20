@@ -8,7 +8,7 @@
     }
   }
   handle @static_public {
-    root {$DRUPAL_DATA_PATH:./data}/public
+    root * {$DRUPAL_DATA_PATH:./data}/public
     file_server
   }
 
@@ -21,13 +21,13 @@
     }
   }
   handle @static_drupal {
-    root {$DRUPAL_APP_ROOT:.}/web
+    root * {$DRUPAL_APP_ROOT:.}/web
     file_server
   }
 
   # Else, run php fpm in $app/web/index.php
   handle {
-    root {$DRUPAL_APP_ROOT:.}/web
+    root * {$DRUPAL_APP_ROOT:.}/web
     rewrite * /index.php
     php_fastcgi unix//tmp/drupal12factor-fpm.sock
   }
