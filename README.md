@@ -108,5 +108,5 @@ serve
 ## TODO
 
 - Investigate possibility of having source code out of webroot entirely ([drupal-paranoia](https://github.com/drupal-composer/drupal-paranoia)?)
-- Make caddyfile more explicit about what is served
-  - Avoid depending on the PHP router to serve public files
+- ~Make caddyfile more explicit about what is served~ Done!
+  - ~Avoid depending on the PHP router to serve public files~ Done!
