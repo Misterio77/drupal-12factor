@@ -54,6 +54,7 @@ if (!file_exists($settings['hash_salt'])) {
   file_put_contents($settings['hash_salt'], Crypt::randomBytesBase64(55));
 }
 
-if (file_exists("$data/settings.local.php")) {
-  require "$data/settings.local.php";
+$extra_settings_file = getenv('DRUPAL_EXTRA_SETTINGS_FILE') ?: "$data/settings.local.php";
+if (file_exists($extra_settings_file)) {
+  require $extra_settings_file;
 }
