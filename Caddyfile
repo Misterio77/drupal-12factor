@@ -1,18 +1,20 @@
 {$DRUPAL_WEB_HOSTNAME}:{$DRUPAL_WEB_PORT:8080} {
-  # If starts with /file and exists as a file in $data/public, serve it
-  @static_public {
+  # If starts with /files/ and exists as a file in $data/public, serve it
+  # This is for user-uploaded and generated files (e.g. aggregated CSS/JS)
+  @data_public {
     path /files/*
     file {
       root {$DRUPAL_DATA_PATH:./data}/public
       try_files {path}
     }
   }
-  handle @static_public {
+  handle @data_public {
     root * {$DRUPAL_DATA_PATH:./data}/public
     file_server
   }
 
-  # If exists as a (non-php) file in $app/web, serve it
+  # Else, if it's not php and exists as a file in $app/web, serve it
+  # These are for non-aggregated module/drupal assets (e.g. theme fonts)
   @static_drupal {
     not path *.php
     file {
@@ -25,7 +27,9 @@
     file_server
   }
 
-  # Else, run php fpm in $app/web/index.php
+  # For everything else, run php fpm in $app/web/index.php; thus going through the php router
+  # This includes pages that never exist as files, as well as files that
+  # will be generated after php handles it once (e.g. aggregated CSS/JS)
   handle {
     root * {$DRUPAL_APP_ROOT:.}/web
     rewrite * /index.php
