@@ -1,4 +1,14 @@
 {$DRUPAL_WEB_HOSTNAME}:{$DRUPAL_WEB_PORT:8080} {
+  # Default cache policy. 1h fresh, use stale while revalidating in background for up to 24h.
+  # This will usually not apply to the page itself, as Drupal sets "must-revalidate"
+  header ?Cache-Control "max-age=3600, stale-while-revalidate=86400"
+  # Aggressively cache aggregated CSS/JS files, as they are hashed
+  @aggregated {
+    path /files/css/css_*
+    path /files/js/js_*
+  }
+  header @aggregated >Cache-Control "max-age=31536000, immutable"
+
   # If starts with /files/ and exists as a file in $data/public, serve it
   # This is for user-uploaded and generated files (e.g. aggregated CSS/JS)
   @data_public {
