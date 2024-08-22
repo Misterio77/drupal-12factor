@@ -27,6 +27,18 @@
     file_server
   }
 
+  # If it's /core/install.php, allow just that
+  # You can respond with a 403 if you want to block this
+  # Or just remove the entire '@install' and 'handle install' blocks
+  @install {
+    path /core/install.php
+  }
+  handle @install {
+    root * {$DRUPAL_APP_ROOT:.}/web
+    # error 403
+    php_fastcgi unix//tmp/drupal12factor-fpm.sock
+  }
+
   # For everything else, run php fpm in $app/web/index.php; thus going through the php router
   # This includes pages that never exist as files, as well as files that
   # will be generated after php handles it once (e.g. aggregated CSS/JS)
