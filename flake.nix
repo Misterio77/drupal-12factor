@@ -12,7 +12,7 @@
       pname = "drupal-12f";
       version = "0.1";
       src = ./.;
-      vendorHash = "sha256-h2XEbAPQJD/jCR7ETzsYL9j1ZFPZwEP98oOAaO3Rubs=";
+      vendorHash = "sha256-u9rlPcpir2GXld0tmL6OtURBTTs9ya+9GR4yTEZt0Is=";
       composerNoScripts = false;
       composerNoPlugins = false;
 

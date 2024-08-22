@@ -1,7 +1,7 @@
 {
-  "name": "zoocha/drupal-12factor",
+  "name": "misterio77/drupal-12factor",
   "description": "An attempt on making drupal less stateful",
-  "license": "proprietary",
+  "license": "mit",
   "type": "project",
   "repositories": [
     {
